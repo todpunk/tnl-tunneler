@@ -2,6 +2,10 @@ var FPS = 30;
 var canvasHeight = window.innerHeight - 30;
 var canvasWidth = 600;
 var message = "";
+var walls = [];
+var wallWidth = 30;
+var wallSpeed = 5;
+
 if (window.innerWidth < 600) {
 	canvasWidth = window.innerWidth;
 }
@@ -24,14 +28,36 @@ var player = {
 	}
 };
 
+function wall() {
+	this.leftx = 0;
+	this.rightx = canvasWidth-wallWidth;
+	this.y = 0;
+}
+
+
 function update() {
 	player.x = Math.max(0, Math.min(player.x, canvasWidth-player.width));
+	walls.push(new wall())
+	for (var i = 0; i < walls.length; i=i+1) {
+		var ourwall = walls[i];
+		ourwall.y = ourwall.y + wallSpeed;
+	}
 }
 
 function draw() {
 	canvas.clearRect(0, 0, canvasWidth, canvasHeight);
 	canvas.fillStyle = "black";
 	canvas.fillRect(0, 0, canvasWidth, canvasHeight);
+	for (var i = 0; i < walls.length; i=i+1) {
+		var ourwall = walls[i];
+		if(ourwall.y > canvasHeight) {
+			// Maybe delete the unused wall?
+		}
+		canvas.fillStyle = "#006400";
+		canvas.fillRect(ourwall.leftx, ourwall.y, wallWidth, wallSpeed);
+		canvas.fillStyle = "#006400";
+		canvas.fillRect(ourwall.rightx, ourwall.y, wallWidth, wallSpeed);
+	}
 	player.draw();
 }
 
