@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>TnL Tunneler</title> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<link href="css/style.css" media="screen, print" rel="stylesheet" type="text/css" /> 
+</head> 
+ 
+<body> 
+  <canvas id="gamefield">
+    <div id="unsupported">
+      Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
+    </div>
+  </canvas>
+
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="js/tunnel.js"></script>
+	<script type="text/javascript">
+		// This is where we will setup the actual game!
+		var canvasElement = $("#gamefield")[0];
+		canvasElement.width = canvasWidth;
+		canvasElement.height = canvasHeight;
+		canvasElement.position = "0,0";
+		var canvas = canvasElement.getContext("2d");
+		canvasElement.addEventListener('mousemove', function(evt) {
+			var mousePos = getMousePos(canvas, evt);
+			// Why the subtraction?  Why indeed.
+			player.x = mousePos.x - (player.width/2);
+		}, false);
+
+	</script>
+</body> 
+</html>
